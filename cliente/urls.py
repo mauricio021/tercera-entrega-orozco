@@ -5,5 +5,5 @@ app_name = "cliente"
 
 urlpatterns = [
     path ("", views.cliente_views, name = "index"),
-    path ("clientes_creados/", views.crear_usuario, name = "crear_usuario"),
+    path ("crear/", views.crear, name = "crear"),
 ]
