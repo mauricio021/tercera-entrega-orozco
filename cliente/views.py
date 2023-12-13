@@ -46,23 +46,11 @@ def buscar_cliente(request):
         #     contexto = {"cliente": buscar_cliente}
         #     return render (request, "cliente/index.html", contexto)
         
-    elif request.method == "POST":
-
-# Si es una solicitud POST, procesa los datos del formulario            
+    elif request.method == "POST":            
         form = forms.RegistroBusqueda(request.POST)
         if form.is_valid():
-# Si el formulario es válido, guarda los datos en la base de datos
-
             datos_formulario = form.cleaned_data
-
             models.Registro = models.Registro.objects.create(**datos_formulario)
-
-            # Puedes hacer más cosas aquí si es necesario, como redirigir a otra página
-
-            return redirect("cliente:index") # Cambia ‘otra_vista’ a la URL a la que deseas redirigir
-
+            return redirect("cliente:index")
         else:
-            print ("errorrrr")
-            # Si el formulario no es válido, vuelve a mostrar el formulario con errores
-
-            #return render(request, ‘mi_app/mi_template.html’, {‘form’: form})    
+            print ("error")
