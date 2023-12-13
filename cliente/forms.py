@@ -6,3 +6,7 @@ class RegistroForm(forms.ModelForm):
     class Meta:
         model = models.Registro
         fields = ["nombre", "apellido","nacimiento", "correo"]
+
+
+class RegistroBusqueda(forms.Form):
+    nombre = forms.CharField()

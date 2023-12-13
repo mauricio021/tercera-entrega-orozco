@@ -1,13 +1,15 @@
 {% extends 'home/base.html' %}
 
-{% block titulo %}
-{% endblock titulo %}
-
 
 {% block contenido_agregado %}
 
     {% for i in clientes %}
     <p>{{ i.apellido }} {{ i.nombre }}</p>
     {% endfor %}
+
+    {% for i in cliente_filtrados %}
+    <p>{{ i.apellido }} {{ i.nombre }}</p>
+    {% endfor %}
+
 
 {% endblock contenido_agregado %}

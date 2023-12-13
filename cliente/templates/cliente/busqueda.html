@@ -1,0 +1,11 @@
+{% extends 'home/base.html' %}
+
+{% block contenido_agregado %}
+    <body style="background-color: grey;">
+        <form action="/cliente/buscar" method="POST">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <input type="submit" value="Buscar">
+        </form>
+    </body>
+{% endblock contenido_agregado %}
