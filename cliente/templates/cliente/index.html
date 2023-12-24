@@ -5,11 +5,15 @@
 
     {% for i in clientes %}
     <p>{{ i.apellido }} {{ i.nombre }}</p>
+    <div>
+        <form action="{% url 'cliente:elimina-cliente' i.id %}" method="POST">{% csrf_token %}
+            <button type="submit">Eliminar</button>
+         </form>
+         <form action="{% url 'cliente:editar' i.id %}" method="POST">{% csrf_token %}
+            <button type="submit">Editar</button>
+        </form>         
+    </div>
     {% endfor %}
-
-    {% for i in cliente_filtrados %}
-    <p>{{ i.apellido }} {{ i.nombre }}</p>
-    {% endfor %}
-
+    </ul>
 
 {% endblock contenido_agregado %}

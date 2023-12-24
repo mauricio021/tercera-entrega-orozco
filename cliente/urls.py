@@ -7,4 +7,6 @@ urlpatterns = [
     path ("", views.cliente_views, name = "index"),
     path ("crear/", views.crear, name = "crear"),
     path ("buscar/", views.buscar_cliente, name = "buscar"),
+    path("eliminar/<int:id>", views.eliminar_cliente, name="elimina-cliente"),
+    path("editar/<int:id>", views.editar_cliente, name="editar"),
 ]

@@ -54,3 +54,43 @@ def buscar_cliente(request):
             return redirect("cliente:index")
         else:
             print ("error")
+
+
+def eliminar_cliente(req, id):
+
+    if req.method == 'POST':
+
+        cliente = models.Registro.objects.get(id=id)
+        cliente.delete()
+
+        clientes = models.Registro.objects.all()
+
+        return render(req, "cliente/index.html", {"clientes": clientes})
+
+
+def editar_cliente(req, id):
+
+    cliente = models.Registro.objects.get(id=id)
+
+    if req.method == 'POST':
+        miFormulario = forms.RegistroForm(req.POST, instance=cliente)
+
+        if miFormulario.is_valid():
+            data = miFormulario.cleaned_data
+            models.Registro.nombre = data["nombre"]
+            models.Registro.apellido = data["apellido"]            
+            miFormulario.save()
+
+            return redirect("cliente:index")
+        
+        return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "clienteee": cliente})
+
+    else:
+
+        miFormulario = forms.RegistroForm(            
+            initial={
+            "nombre": models.Registro.nombre,
+            "apellido": models.Registro.apellido,
+        })
+
+        return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "clienteee": cliente})    
