@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from . import models
-from datetime import date
 from . import forms
+from datetime import date
 
 def cliente_views(request):
     clientes = models.Registro.objects.all()
@@ -75,22 +75,21 @@ def editar_cliente(req, id):
     if req.method == 'POST':
         miFormulario = forms.RegistroForm(req.POST, instance=cliente)
 
-        if miFormulario.is_valid():
-            data = miFormulario.cleaned_data
-            models.Registro.nombre = data["nombre"]
-            models.Registro.apellido = data["apellido"]            
+        if miFormulario.is_valid():       
             miFormulario.save()
 
             return redirect("cliente:index")
         
-        return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "clienteee": cliente})
+        return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "cliente": cliente})
 
     else:
 
         miFormulario = forms.RegistroForm(            
             initial={
-            "nombre": models.Registro.nombre,
-            "apellido": models.Registro.apellido,
-        })
+                "nombre": models.Registro.nombre,
+                "apellido": models.Registro.apellido,
+            })
 
-        return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "clienteee": cliente})    
+        return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "cliente": cliente})    
+    
+

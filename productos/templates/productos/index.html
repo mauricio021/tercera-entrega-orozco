@@ -1,14 +1,17 @@
 {% extends 'home/base.html' %}
 
-{% block titulo %}
-{% endblock titulo %}
-
-
 {% block contenido_agregado %}
 
-    {% for i in vendedor %}
-    <p>{{ i.producto }}-{{ i.vendedor }}</p>
+    {% for producto in productos %}
+    <p>{{ producto.producto }}-{{ producto.vendedor }}(${{producto.precio}})</p>
+    <div>
+        <form action="{% url 'productos:eliminar-producto' producto.id %}" method="POST">{% csrf_token %}
+            <button type="submit">Eliminar</button>
+         </form>
+         <form action="{% url 'productos:editar' producto.id %}" method="POST">{% csrf_token %}
+            <button type="submit">Editar</button>
+        </form>                 
+    </div>    
     {% endfor %}
 
-
-{% endblock contenido_agregado%}
+{% endblock contenido_agregado %}

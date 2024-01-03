@@ -8,5 +8,5 @@ class Productos(models.Model):
     correo = models.EmailField(max_length=254, blank=True, null=True)    
 
     def __str__(self):
-        return f"{self.vendedor}-{self.producto} (${self.precio})"
+        return f"{self.vendedor}-{self.producto}-{self.precio}"
     

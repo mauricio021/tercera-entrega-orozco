@@ -1,0 +1,12 @@
+{% extends 'home/base.html' %}
+
+{% block contenido_agregado%}
+<body>
+     <form action= "{% url 'productos:editar' id=producto.id %}" method="POST">
+         {% csrf_token %}
+         {{ miFormulario.as_p }}
+         <input type="submit" value="Editar">
+     </form>
+</body>
+
+{% endblock%}
