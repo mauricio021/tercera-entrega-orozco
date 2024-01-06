@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from . import models
 from . import forms
 from django.views.generic.edit import UpdateView
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def cliente_views(request):
     clientes = models.Registro.objects.all()
     context = {"clientes": clientes}
@@ -27,25 +29,7 @@ def buscar_cliente(request):
         context = {"cliente" : form}
         return render (request, "cliente/busqueda.html", context)
 
-    #else:
-        # formulario = forms.RegistroBusqueda(request.POST)
-        # if formulario.is_valid():
-        #     informacion = formulario.cleaned_data
-        #     cliente_filtrados = models.Registro.objects.filter(cliente=informacion["nombre"])
-        #     contexto = {"cliente_filtrados": cliente_filtrados}
-        #     return render(request, "cliente/index.html", contexto)
-
-
-
-        # formulario = forms.RegistroBusqueda(request.POST)
-        # if formulario.is_valid():
-        #     informacion = formulario.cleaned_data
-        #     cliente_filtrados = []
-        #     for i in models.Registro.objects.filter(cliente=informacion["nombre"]):
-        #         cliente_filtrados.append(i)
-        #     contexto = {"cliente": buscar_cliente}
-        #     return render (request, "cliente/index.html", contexto)
-        
+       
     elif request.method == "POST":            
         form = forms.RegistroBusqueda(request.POST)
         if form.is_valid():
@@ -68,30 +52,6 @@ def eliminar_cliente(req, id):
         return render(req, "cliente/index.html", {"clientes": clientes})
 
 
-# def editar_cliente(req, id):
-
-#     cliente = models.Registro.objects.get(id=id)
-
-#     if req.method == 'POST':
-#         miFormulario = forms.RegistroForm(req.POST, instance=cliente)
-
-#         if miFormulario.is_valid():       
-#             miFormulario.save()
-
-#             return redirect("cliente:index")
-        
-#         return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "cliente": cliente})
-
-#     else:
-
-#         miFormulario = forms.RegistroForm(            
-#             initial={
-#                 "nombre": models.Registro.nombre,
-#                 "apellido": models.Registro.apellido,
-#             })
-
-#         return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "id":cliente.id})    
-    
 
 class ClienteUpdate(UpdateView):
     model = models.Registro
