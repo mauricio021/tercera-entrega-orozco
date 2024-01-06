@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from . import models
 from . import forms
-from datetime import date
+from django.views.generic.edit import UpdateView
 
 def cliente_views(request):
     clientes = models.Registro.objects.all()
@@ -24,7 +24,7 @@ def crear(request):
 def buscar_cliente(request):
     if request.method == "GET":
         form = forms.RegistroBusqueda()
-        context = {"form" : form}
+        context = {"cliente" : form}
         return render (request, "cliente/busqueda.html", context)
 
     #else:
@@ -68,28 +68,33 @@ def eliminar_cliente(req, id):
         return render(req, "cliente/index.html", {"clientes": clientes})
 
 
-def editar_cliente(req, id):
+# def editar_cliente(req, id):
 
-    cliente = models.Registro.objects.get(id=id)
+#     cliente = models.Registro.objects.get(id=id)
 
-    if req.method == 'POST':
-        miFormulario = forms.RegistroForm(req.POST, instance=cliente)
+#     if req.method == 'POST':
+#         miFormulario = forms.RegistroForm(req.POST, instance=cliente)
 
-        if miFormulario.is_valid():       
-            miFormulario.save()
+#         if miFormulario.is_valid():       
+#             miFormulario.save()
 
-            return redirect("cliente:index")
+#             return redirect("cliente:index")
         
-        return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "cliente": cliente})
+#         return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "cliente": cliente})
 
-    else:
+#     else:
 
-        miFormulario = forms.RegistroForm(            
-            initial={
-                "nombre": models.Registro.nombre,
-                "apellido": models.Registro.apellido,
-            })
+#         miFormulario = forms.RegistroForm(            
+#             initial={
+#                 "nombre": models.Registro.nombre,
+#                 "apellido": models.Registro.apellido,
+#             })
 
-        return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "cliente": cliente})    
+#         return render(req, "cliente/editar.html", {"miFormulario": miFormulario, "id":cliente.id})    
     
 
+class ClienteUpdate(UpdateView):
+    model = models.Registro
+    template_name = "cliente/editar.html"
+    fields = ["nombre", "apellido"]
+    success_url = "/cliente/"

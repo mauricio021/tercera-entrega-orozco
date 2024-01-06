@@ -2,13 +2,13 @@
 
 {% block contenido_agregado %}
 
-    {% for i in clientes %}
-    <p>{{ i.apellido }} {{ i.nombre }}</p>
+    {% for cliente in clientes %}
+    <p>{{ cliente.apellido }} {{ cliente.nombre }}</p>
     <div>
-        <form action="{% url 'cliente:elimina-cliente' i.id %}" method="POST">{% csrf_token %}
+        <form action="{% url 'cliente:elimina-cliente' cliente.id %}" method="POST">{% csrf_token %}
             <button type="submit">Eliminar</button>
          </form>
-         <form action="{% url 'cliente:editar' i.id %}" method="POST">{% csrf_token %}
+         <form action="{% url 'cliente:editar-cliente' cliente.id %}" method="POST">{% csrf_token %}
             <button type="submit">Editar</button>
         </form>         
     </div>

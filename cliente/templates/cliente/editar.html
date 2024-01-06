@@ -1,12 +1,24 @@
 {% extends "home/base.html" %}
 
 {% block contenido_agregado %}
-    <body>
-        <form action=" {% url 'cliente:editar' id=cliente.id %}" method="POST">
-            {% csrf_token %}
-            {{ miFormulario.as_p }}
-            <input type="submit" value="Editar">
-        </form>
-    </body>
+<!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ </head>
+
+ <body>
+     <form action="{% url 'cliente:editar-cliente' registro.pk %}" method="POST">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <input type="submit" value="Editar">
+     </form>
+ </body>
+
+ </html>
+
 {% endblock %}
 

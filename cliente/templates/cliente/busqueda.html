@@ -2,9 +2,9 @@
 
 {% block contenido_agregado %}
     <body style="background-color: grey;">
-        <form action="/cliente/buscar" method="POST">
+        <form action="cliente/buscar" method="POST">
             {% csrf_token %}
-            {{ form.as_table }}
+            {{ form.as_p }}
             <input type="submit" value="Buscar">
         </form>
     </body>
